@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>M. Suhel Firdus — Solutions Architect & AI Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d0d0d;
+      --paper: #f5f0e8;
+      --gold: #b8902a;
+      --gold-light: #d4a83a;
+      --rust: #8b3a2a;
+      --slate: #2c3e50;
+      --muted: #6b6355;
+      --line: rgba(13,13,13,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ─── HEADER / HERO ─── */
+    header {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding: 5rem 4rem 5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--line);
+    }
+
+    .wordmark {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.1s;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 6vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.3s;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--gold);
+      display: block;
+    }
+
+    .hero-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.9s;
+    }
+
+    .hero-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .hero-links a:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 5rem 5rem 4rem;
+      overflow: hidden;
+    }
+
+    /* Decorative vertical type */
+    .hero-vertical-text {
+      position: absolute;
+      top: 5rem;
+      right: 2rem;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* Big decorative number */
+    .hero-deco-year {
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(8rem, 18vw, 20rem);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(13,13,13,0.07);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--ink);
+      max-width: 36ch;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.5s;
+    }
+
+    .hero-tagline strong {
+      font-weight: 600;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-location {
+      margin-top: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    /* Gold rule decoration */
+    .gold-line {
+      width: 3rem;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── NAV TICKER ─── */
+    .ticker-bar {
+      background: var(--ink);
+      color: var(--paper);
+      overflow: hidden;
+      padding: 0.6rem 0;
+      position: relative; z-index: 1;
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 4rem;
+      animation: ticker 20s linear infinite;
+      width: max-content;
+    }
+
+    .ticker-inner span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0.7;
+    }
+
+    .ticker-inner span.accent {
+      color: var(--gold-light);
+      opacity: 1;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── MAIN SECTIONS ─── */
+    main { position: relative; z-index: 1; }
+
+    section { border-bottom: 1px solid var(--line); }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 2.5fr;
+      min-height: 0;
+    }
+
+    .section-label {
+      padding: 4rem 3rem 4rem 6rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .section-label-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-label-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--line);
+      line-height: 1;
+    }
+
+    .section-content {
+      padding: 4rem 5rem 4rem 4rem;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-text {
+      font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink);
+      max-width: 70ch;
+    }
+
+    .about-text p + p { margin-top: 1.5rem; }
+
+    .about-text em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .about-text strong {
+      font-weight: 600;
+    }
+
+    /* ─── EXPERTISE ─── */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .expertise-item {
+      padding: 2.5rem 2.5rem;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .expertise-item:nth-child(even) { border-right: none; }
+    .expertise-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .expertise-item:hover { background: rgba(184,144,42,0.04); }
+
+    .expertise-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .expertise-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .expertise-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ─── SELECTED WORK / TIMELINE ─── */
+    .timeline { position: relative; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 10rem 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 0.3rem;
+    }
+
+    .timeline-body-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline-body-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline-body-desc {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 60ch;
+    }
+
+    /* ─── CREDENTIALS ─── */
+    .creds-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cred-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cred-item:last-child { border-bottom: none; }
+
+    .cred-badge {
+      width: 2.8rem;
+      height: 2.8rem;
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+
+    .cred-text strong {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .cred-text span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-section {
+      background: var(--ink);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section .section-label {
+      border-right-color: rgba(245,240,232,0.1);
+    }
+
+    .contact-section .section-label-text { color: rgba(245,240,232,0.4); }
+    .contact-section .section-label-num { -webkit-text-stroke-color: rgba(245,240,232,0.08); }
+
+    .contact-deco {
+      position: absolute;
+      bottom: -4rem;
+      right: -4rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20rem;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(245,240,232,0.04);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .contact-heading {
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-heading em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      color: var(--paper);
+      padding: 1.2rem 1.5rem;
+      border: 1px solid rgba(245,240,232,0.12);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-link::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: var(--gold);
+      transition: width 0.3s ease;
+      z-index: 0;
+    }
+
+    .contact-link:hover::before { width: 4px; }
+
+    .contact-link:hover {
+      border-color: var(--gold);
+      background: rgba(184,144,42,0.06);
+    }
+
+    .contact-link-icon {
+      font-size: 1.1rem;
+      position: relative; z-index: 1;
+    }
+
+    .contact-link-label {
+      position: relative; z-index: 1;
+    }
+
+    .contact-link-label strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+
+    .contact-link-label span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .contact-link-arrow {
+      margin-left: auto;
+      font-size: 1rem;
+      opacity: 0.3;
+      transition: opacity 0.3s, transform 0.3s;
+      position: relative; z-index: 1;
+    }
+
+    .contact-link:hover .contact-link-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative; z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 6rem;
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    footer .foot-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    footer .foot-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      header { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 3rem 2rem 2rem 2rem; border-right: none; border-bottom: 1px solid var(--line); }
+      .hero-right { padding: 2rem 2rem 3rem 2rem; }
+      .section-grid { grid-template-columns: 1fr; }
+      .section-label { padding: 2rem 2rem 1rem 2rem; border-right: none; border-bottom: 1px solid var(--line); flex-direction: row; align-items: center; gap: 1rem; }
+      .section-label-num { font-size: 2.5rem; }
+      .section-content { padding: 2rem 2rem; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .expertise-item { border-right: none !important; }
+      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header>
+  <div class="hero-left">
+    <div class="wordmark">Portfolio · Solutions Architect · AI Strategist</div>
+
+    <div>
+      <h1 class="hero-name">
+        M. Suhel<br><em>Firdus</em>
+      </h1>
+      <p class="hero-title">Senior Principal Consultant &amp; Solutions Architect<br>Fintech · Enterprise AI · Systems Integration</p>
+    </div>
+
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/suhelm" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/suhelm" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:suhel@example.com">Email ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-deco-year">SF</div>
+    <div class="hero-vertical-text">Kitchener–Waterloo · Ontario · Canada</div>
+    <div class="gold-line"></div>
+    <p class="hero-tagline">
+      Bridging <strong>enterprise complexity</strong> and <strong>human possibility</strong> — through AI systems that <em>actually work</em> at scale.
+    </p>
+    <p class="hero-location">📍 Kitchener–Waterloo, Ontario · 15+ Years in Enterprise Tech</p>
+  </div>
+</header>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="accent">AI Adoption Leadership</span>
+    <span>·</span>
+    <span>Enterprise Systems Integration</span>
+    <span>·</span>
+    <span class="accent">Apache Camel · IBM MQ · RabbitMQ</span>
+    <span>·</span>
+    <span>Corda Blockchain</span>
+    <span>·</span>
+    <span class="accent">Oracle Cloud Infrastructure</span>
+    <span>·</span>
+    <span>Fintech &amp; Banking Technology</span>
+    <span>·</span>
+    <span class="accent">GenAI · LLMs · RAG · MCP</span>
+    <span>·</span>
+    <span>Cross-Functional Team Leadership</span>
+    <span>·</span>
+    <!-- duplicate for seamless loop -->
+    <span class="accent">AI Adoption Leadership</span>
+    <span>·</span>
+    <span>Enterprise Systems Integration</span>
+    <span>·</span>
+    <span class="accent">Apache Camel · IBM MQ · RabbitMQ</span>
+    <span>·</span>
+    <span>Corda Blockchain</span>
+    <span>·</span>
+    <span class="accent">Oracle Cloud Infrastructure</span>
+    <span>·</span>
+    <span>Fintech &amp; Banking Technology</span>
+    <span>·</span>
+    <span class="accent">GenAI · LLMs · RAG · MCP</span>
+    <span>·</span>
+    <span>Cross-Functional Team Leadership</span>
+    <span>·</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ─── ABOUT ─── -->
+  <section>
+    <div class="section-grid">
+      <div class="section-label">
+        <div class="section-label-num">01</div>
+        <div class="section-label-text">About</div>
+      </div>
+      <div class="section-content reveal">
+        <div class="about-text">
+          <p>
+            I am a <strong>Senior Principal Consultant and Solutions Architect</strong> with over 15 years helping financial institutions navigate the distance between where their technology is and where it needs to be. My work lives at the intersection of <em>enterprise architecture</em>, <em>AI adoption</em>, and <em>complex systems integration</em>.
+          </p>
+          <p>
+            Based in Kitchener–Waterloo, I have led cross-functional teams across Canada, India, and the USA — translating ambiguous business goals into robust, production-grade systems. From orchestrating enterprise middleware pipelines to architecting agentic AI workflows, I believe the best technology disappears into the background and simply <em>works</em>.
+          </p>
+          <p>
+            Holder of an <strong>M.Eng from Concordia University</strong> and an <strong>Executive MBA in Strategic Leadership</strong> (Valar Institute), with certifications spanning Anthropic Claude, Oxford AI in Financial Services, OCI, Blockchain, and Agile frameworks — I bring both the depth of an engineer and the breadth of a strategist.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERTISE ─── -->
+  <section>
+    <div class="section-grid">
+      <div class="section-label">
+        <div class="section-label-num">02</div>
+        <div class="section-label-text">Expertise</div>
+      </div>
+      <div class="section-content" style="padding: 0;">
+        <div class="expertise-grid">
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">🤖</div>
+            <div class="expertise-title">AI &amp; GenAI Strategy</div>
+            <div class="expertise-desc">LLM integration, RAG systems, agentic workflows, MCP, Claude API — driving real AI adoption in regulated enterprise environments.</div>
+          </div>
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">🔗</div>
+            <div class="expertise-title">Systems Integration</div>
+            <div class="expertise-desc">Apache Camel, IBM MQ, RabbitMQ, REST/SOAP APIs — engineering the connective tissue of complex financial platforms.</div>
+          </div>
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">☁️</div>
+            <div class="expertise-title">Cloud Architecture</div>
+            <div class="expertise-desc">Oracle Cloud Infrastructure (OCI), scalable microservices, database optimization, and Exadata — cloud-native at enterprise scale.</div>
+          </div>
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">⛓️</div>
+            <div class="expertise-title">Blockchain &amp; Fintech</div>
+            <div class="expertise-desc">Corda-based distributed ledger implementations, smart contracts, and financial services innovation across banking technology stacks.</div>
+          </div>
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">🧠</div>
+            <div class="expertise-title">Technical Leadership</div>
+            <div class="expertise-desc">Managing cross-functional teams across three continents, mentoring engineers, and translating executive vision into delivery roadmaps.</div>
+          </div>
+          <div class="expertise-item reveal">
+            <div class="expertise-icon">📐</div>
+            <div class="expertise-title">EdTech &amp; LMS Design</div>
+            <div class="expertise-desc">Building full-stack learning management systems with live teaching, AI study assistants, and role-based access — from concept to production.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section>
+    <div class="section-grid">
+      <div class="section-label">
+        <div class="section-label-num">03</div>
+        <div class="section-label-text">Career Arc</div>
+      </div>
+      <div class="section-content reveal">
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-year">2022 – Present</div>
+            <div>
+              <div class="timeline-body-title">Senior Principal Consultant · Solutions Architect</div>
+              <div class="timeline-body-sub">Enterprise Fintech &amp; Banking · Canada</div>
+              <div class="timeline-body-desc">Leading AI adoption strategy and enterprise systems integration for financial institutions. Architecting LLM-powered workflows, OCI deployments, and large-scale integration platforms using Apache Camel and IBM MQ.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2017 – 2022</div>
+            <div>
+              <div class="timeline-body-title">Principal Consultant · Integration Architect</div>
+              <div class="timeline-body-sub">Banking Technology · Canada &amp; USA</div>
+              <div class="timeline-body-desc">Designed and delivered enterprise middleware solutions for Tier-1 financial clients. Led cross-border teams and pioneered Corda blockchain integrations for settlement and clearing use cases.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2012 – 2017</div>
+            <div>
+              <div class="timeline-body-title">Senior Solutions Consultant</div>
+              <div class="timeline-body-sub">Systems Integration · India &amp; Canada</div>
+              <div class="timeline-body-desc">Built integration frameworks for banking and insurance clients. Specialized in messaging systems (RabbitMQ, MQ), API orchestration, and Agile delivery governance across distributed teams.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2008 – 2012</div>
+            <div>
+              <div class="timeline-body-title">Software Engineer · Consultant</div>
+              <div class="timeline-body-sub">Fintech · India</div>
+              <div class="timeline-body-desc">Foundations in enterprise software engineering — Java, SOA architecture, and financial systems — while completing an M.Eng at Concordia University.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CREDENTIALS ─── -->
+  <section>
+    <div class="section-grid">
+      <div class="section-label">
+        <div class="section-label-num">04</div>
+        <div class="section-label-text">Credentials</div>
+      </div>
+      <div class="section-content reveal">
+        <div class="creds-list">
+
+          <div class="cred-item">
+            <div class="cred-badge">MBA</div>
+            <div class="cred-text">
+              <strong>Executive MBA — Strategic Leadership</strong>
+              <span>Valar Institute</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">M.Eng</div>
+            <div class="cred-text">
+              <strong>Master of Engineering</strong>
+              <span>Concordia University, Montréal</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">B.E.</div>
+            <div class="cred-text">
+              <strong>Bachelor of Engineering — Electrical &amp; Electronics</strong>
+              <span>Anna University, India</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">AI</div>
+            <div class="cred-text">
+              <strong>Claude Code in Action · AI Fundamentals in Financial Services</strong>
+              <span>Anthropic · University of Oxford</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">OCI</div>
+            <div class="cred-text">
+              <strong>Oracle Cloud Infrastructure Certified</strong>
+              <span>Oracle · Cloud Architecture</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">BC</div>
+            <div class="cred-text">
+              <strong>Blockchain &amp; Distributed Ledger Certified</strong>
+              <span>Corda · Enterprise Blockchain</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">ML</div>
+            <div class="cred-text">
+              <strong>Machine Learning &amp; GenAI Certifications</strong>
+              <span>LoRA · QLoRA · RAG · Transformer Architectures</span>
+            </div>
+          </div>
+
+          <div class="cred-item">
+            <div class="cred-badge">PMI</div>
+            <div class="cred-text">
+              <strong>Agile &amp; Project Management Certified</strong>
+              <span>SAFe · Scrum · Agile Delivery Governance</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact-section">
+    <div class="section-grid">
+      <div class="section-label">
+        <div class="section-label-num" style="-webkit-text-stroke-color: rgba(245,240,232,0.08);">05</div>
+        <div class="section-label-text">Connect</div>
+      </div>
+      <div class="section-content" style="position:relative;">
+        <div class="contact-deco">SF</div>
+
+        <h2 class="contact-heading reveal">
+          Let's build<br>something <em>remarkable</em><br>together.
+        </h2>
+
+        <div class="contact-links reveal">
+          <a class="contact-link" href="https://www.linkedin.com/in/suhelm" target="_blank" rel="noopener">
+            <span class="contact-link-icon">in</span>
+            <span class="contact-link-label">
+              <strong>LinkedIn</strong>
+              <span>linkedin.com/in/suhelm</span>
+            </span>
+            <span class="contact-link-arrow">→</span>
+          </a>
+
+          <a class="contact-link" href="https://github.com/suhelm" target="_blank" rel="noopener">
+            <span class="contact-link-icon">⌥</span>
+            <span class="contact-link-label">
+              <strong>GitHub</strong>
+              <span>github.com/suhelm</span>
+            </span>
+            <span class="contact-link-arrow">→</span>
+          </a>
+
+          <a class="contact-link" href="mailto:suhel@example.com">
+            <span class="contact-link-icon">✉</span>
+            <span class="contact-link-label">
+              <strong>Email</strong>
+              <span>Get in touch directly</span>
+            </span>
+            <span class="contact-link-arrow">→</span>
+          </a>
+
+          <a class="contact-link" href="https://github.com/suhelm/apexlearn" target="_blank" rel="noopener">
+            <span class="contact-link-icon">🎓</span>
+            <span class="contact-link-label">
+              <strong>RiverbaLearn — LMS Project</strong>
+              <span>github.com/suhelm/apexlearn</span>
+            </span>
+            <span class="contact-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="foot-name">M. Suhel Firdus · Kitchener–Waterloo, ON</span>
+  <span class="foot-copy">© 2026 · Crafted with intention</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
